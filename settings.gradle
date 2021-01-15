@@ -1,0 +1,3 @@
+include ':viewlib'
+include ':app'
+rootProject.name = "view"
