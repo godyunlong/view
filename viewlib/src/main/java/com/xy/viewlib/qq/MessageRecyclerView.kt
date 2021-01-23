@@ -18,7 +18,7 @@ class MessageRecyclerView(context: Context, attributeSet: AttributeSet?=null)
         this.isDown = isDown
     }
 
-    fun bindMessageTouchListener(listener: MessageTouchListener){
+    fun bindMessageTouchListener(listener: MessageTouchListener?){
         this.listener = listener
     }
 }

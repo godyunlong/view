@@ -21,7 +21,7 @@ import com.xy.viewlib.R
  */
 
 class QQOnBubbleTouchListener<T>(private val mView: View, private val mContext: Context
-                              ,private val item:T,private val bubbleListener:QQRemoveBubbleListener<T>
+                              ,private val item:T,private val bubbleListener:QQRemoveBubbleListener<T>?=null
                                  ,private val touchListener: MessageTouchListener?=null) : OnTouchListener , IActionUpListener {
 
     private val mWindowManger: WindowManager = mContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -92,7 +92,7 @@ class QQOnBubbleTouchListener<T>(private val mView: View, private val mContext: 
      */
     private fun startBombAnimator() {
         val animationDrawable = mBombImageView.drawable
-        bubbleListener.onQQRemoveBubble(item)
+        bubbleListener?.onQQRemoveBubble(item)
         if (animationDrawable is AnimationDrawable){
             //获取每帧时间,为了延迟移除WindowManager上的爆炸界面
             var time: Long = 0
