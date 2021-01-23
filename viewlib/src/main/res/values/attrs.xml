@@ -121,4 +121,11 @@
         <attr name="date_toDay_textColor" format="color"/>
         <attr name="date_common_textColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="QQMessageView">
+        <attr name="fixCircleRadiusMax" format="dimension" />
+        <attr name="fixCircleRadiusMin" format="dimension" />
+        <attr name="dragCircleRadius" format="dimension" />
+        <attr name="circleColor" format="color" />
+    </declare-styleable>
 </resources>
