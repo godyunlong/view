@@ -1,5 +1,7 @@
 package com.xy.viewlib.qq
 
+import android.view.View
+
 interface QQRemoveBubbleListener<T> {
-    fun onQQRemoveBubble(item:T?,type:Int)
+    fun onQQRemoveBubble(view: View, item:T?, type:Int)
 }
