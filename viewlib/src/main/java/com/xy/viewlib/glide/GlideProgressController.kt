@@ -15,7 +15,7 @@ class GlideProgressController(private val view:View)  {
     private var minSize = 30F
     
     fun onDraw(canvas: Canvas?){
-        if (isComplete && progress >0)return
+        if (isComplete || progress <0 || progress>100)return
         drawOutCircle(canvas)
         drawProgress(canvas)
     }
@@ -31,20 +31,13 @@ class GlideProgressController(private val view:View)  {
     }
 
     private fun drawProgress(canvas: Canvas?){
-        var minSize = min(min(view.width,view.height) /2, dp2px(view.context,minSize))
-        minSize -= dp2px(view.context, 8F)
-        val left = view.width/2f-minSize/2F
-        val right = view.width/2f+minSize/2F
-        val top = view.height/2f-minSize/2F
-        val bottom = view.height/2F+minSize/2F
-        val oval = RectF()
-        oval.set(left,top,right,bottom)
-
         val paint = Paint()
         paint.color = getColor(view.context, R.color.gray_9999)
         paint.style = Paint.Style.FILL
+        paint.strokeWidth = dp2px(view.context,10F).toFloat();
         paint.isAntiAlias = true
-        canvas?.drawArc(oval,-90F,progress*360-90,true,paint)
+        paint.textAlign = Paint.Align.CENTER
+        canvas?.drawText("$progress%",view.width/2f,view.height/2f,paint)
     }
 
     fun onProgress(isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) {
@@ -52,5 +45,4 @@ class GlideProgressController(private val view:View)  {
         this.progress = percentage/100F
         view.invalidate()
     }
-    
 }
