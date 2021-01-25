@@ -24,7 +24,7 @@ class QQOnBubbleTouchListener<T>(private val mView: View, private val mContext: 
 
     var bubbleListener:QQRemoveBubbleListener<T>?=null
     var removeType:Int = 0
-    var touchListener :MessageTouchListener?=null
+    var touchListener :ArrayList<MessageTouchListener?> = ArrayList<MessageTouchListener?>()
     var item:T?=null
     private val mWindowManger: WindowManager = mContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     private val qqMessageView: QQMessageView = QQMessageView(mContext)
@@ -53,14 +53,16 @@ class QQOnBubbleTouchListener<T>(private val mView: View, private val mContext: 
                 mView.getLocationOnScreen(location)
                 qqMessageView.initPoint(location[0] + mView.width / 2F, location[1] + mView.height / 2F)
                 mView.visibility = View.INVISIBLE
-                touchListener?.onTouchStatus(true)
+                for (listener in touchListener)
+                    listener?.onTouchStatus(true)
             }
             MotionEvent.ACTION_MOVE -> {
                 qqMessageView.updateDragPoint(event.rawX, event.rawY)
             }
             MotionEvent.ACTION_UP,MotionEvent.ACTION_CANCEL -> {
                 qqMessageView.actionUp(this)
-                touchListener?.onTouchStatus(false)
+                for (listener in touchListener)
+                    listener?.onTouchStatus(true)
             }
         }
         return true
