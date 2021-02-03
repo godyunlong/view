@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import com.xy.baselib.adapter.DateAdapter
 import com.xy.viewlib.NestScrollGridLayoutManager
 import com.xy.viewlib.R
 import com.xy.viewlib.getColor
@@ -17,7 +16,7 @@ import kotlin.collections.ArrayList
  * 年月日筛选
  */
 class DateView(context: Context, attrs: AttributeSet?=null):FrameLayout(context,attrs), DateClickListener,View.OnClickListener{
-    private var adapter: DateAdapter ?=null
+    private var adapter: DateAdapter?=null
     private var year:Int = 0
     private var month :Int = 0
     init {
@@ -42,8 +41,8 @@ class DateView(context: Context, attrs: AttributeSet?=null):FrameLayout(context,
         val year = cal[Calendar.YEAR]
         val month = cal[Calendar.MONTH] + 1
         val nowDay = cal[Calendar.DAY_OF_MONTH]
-        setNewData(year,month,nowDay)
-
+        val position = setNewData(year,month,nowDay)
+        adapter?.changeSelectPosition(position)
         date_right_button.setOnClickListener(this)
         date_left_button.setOnClickListener(this)
     }
@@ -65,7 +64,9 @@ class DateView(context: Context, attrs: AttributeSet?=null):FrameLayout(context,
         setNewData(selectDate[0],selectDate[1],nowDay)
     }
     
-    private fun setNewData(year: Int,month: Int,nowDay:Int){
+    private fun setNewData(year: Int,month: Int,nowDay:Int):Int{
+        var nowDayPosition = -1
+
         val maxDay =getMaxDay(year,month)
         val minWeek = getDayWeek(year,month,1)
         val maxWeek = getDayWeek(year,month,maxDay)
@@ -85,6 +86,8 @@ class DateView(context: Context, attrs: AttributeSet?=null):FrameLayout(context,
             val nowMonth = cal[Calendar.MONTH] + 1
             val item = DateMode(year, month, index, (nowYear == year && nowMonth == month && nowDay == index))
             adapter?.notifyChangeItem(nweData.size,item)
+            if ((nowYear == year && nowMonth == month && nowDay == index))
+                nowDayPosition = nweData.size
             nweData.add(item)
         }
         for (index in 1..(7-maxWeek)){
@@ -97,6 +100,7 @@ class DateView(context: Context, attrs: AttributeSet?=null):FrameLayout(context,
         this.month = month
         if (adapter?.data?.size?:0 <= 0)
             adapter?.setNewData(nweData)
+        return nowDayPosition
     }
 
     /**

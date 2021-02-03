@@ -1,4 +1,4 @@
-package com.xy.baselib.adapter
+package com.xy.viewlib.dateview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.xy.viewlib.R
-import com.xy.viewlib.dateview.DateClickListener
-import com.xy.viewlib.dateview.DateMode
 import com.xy.viewlib.dp2px
 
 class DateAdapter(private val selectBackground:Int,private val selectBackgroundNot:Int,private val toDayBackGround:Int
