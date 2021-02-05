@@ -11,7 +11,7 @@ import com.xy.viewlib.R
 
 object GlideUtils {
 
-    var placePic:Int = R.color.transparent
+    var placePic:Int = R.mipmap.icon_logo
     var errPic:Int = R.mipmap.icon_logo
 
     fun getOption(transformation: Transformation<Bitmap>, placePic: Int = GlideUtils.placePic, errPic: Int = GlideUtils.errPic): RequestOptions {
