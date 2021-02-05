@@ -43,7 +43,7 @@ object ProgressManager {
         if (url != null && url is String && listener != null) {
             listenersMap[url] = listener
         }
-        listener?.onProgress(true, 1, 0, 0)
+        listener?.onProgress(false, 1, 0, 0)
     }
 
     fun removeListener(url: String?) {
