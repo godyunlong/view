@@ -7,6 +7,7 @@ import com.github.chrisbanes.photoview.PhotoView
 
 class GlidePhotoImgView(context: Context,attributeSet: AttributeSet?=null)
     : PhotoView(context,attributeSet), OnProgressListener {
+    var progressListener:OnProgressListener?=null
     private val glideProgressController: GlideProgressController = GlideProgressController(this)
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -15,5 +16,6 @@ class GlidePhotoImgView(context: Context,attributeSet: AttributeSet?=null)
 
     override fun onProgress(isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) {
         glideProgressController.onProgress(isComplete,percentage, bytesRead, totalBytes)
+        progressListener?.onProgress(isComplete,percentage, bytesRead, totalBytes)
     }
 }

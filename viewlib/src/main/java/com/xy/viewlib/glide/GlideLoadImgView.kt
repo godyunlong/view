@@ -10,6 +10,7 @@ import com.xy.viewlib.glide.OnProgressListener
 
 class GlideLoadImgView(context: Context,attributeSet: AttributeSet?)
     : AppCompatImageView(context,attributeSet),OnProgressListener{
+    var progressListener:OnProgressListener?=null
     private val glideProgressController: GlideProgressController = GlideProgressController(this)
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -18,5 +19,6 @@ class GlideLoadImgView(context: Context,attributeSet: AttributeSet?)
 
     override fun onProgress(isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) {
         glideProgressController.onProgress(isComplete,percentage, bytesRead, totalBytes)
+        progressListener?.onProgress(isComplete,percentage, bytesRead, totalBytes)
     }
 }
