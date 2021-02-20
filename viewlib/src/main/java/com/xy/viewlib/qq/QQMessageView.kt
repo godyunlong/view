@@ -58,6 +58,7 @@ class QQMessageView (context: Context,attrs: AttributeSet?= null) : View(context
             canvas.drawPath(path, mPaint!!)
         }
         val bitmap = mBitmap?:return
+        if (bitmap.isRecycled)return
         canvas.drawBitmap(bitmap, mDragPoint.x - bitmap.width / 2,
             mDragPoint.y - bitmap.height / 2, mPaint)
     }
