@@ -31,16 +31,6 @@
         <attr name="decimal_length" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="PickerScrollView">
-        <attr name="aj_pick_loop" format="boolean"/>//是否循环
-        <attr name="aj_pick_select_color" format="color"/>//选中文字颜色
-        <attr name="aj_pick_select_not_color" format="color"/>//未选中文字颜色
-        <attr name="aj_pick_speed" format="float"/>//滑动速度
-        <attr name="aj_pick_spacing" format="float"/>//滑动速度
-        <attr name="aj_pick_max_textSize" format="dimension"/>//滑动速度
-        <attr name="aj_pick_min_textSize" format="dimension"/>//滑动速度
-    </declare-styleable>
-
     <declare-styleable name="NavigationView">
         <attr name="aj_navigation_can_scroll" format="color"/>
         <attr name="aj_navigation_select_background" format="reference"/>
