@@ -1,60 +1,54 @@
 package com.xy.viewlib.edt
 
 import android.content.Context
-import android.text.InputFilter
-import android.text.Spanned
-import android.text.TextUtils
+import android.text.*
 import android.util.AttributeSet
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import com.xy.viewlib.R
+import java.lang.Exception
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class MoneyEditView (context: Context,attrs: AttributeSet):AppCompatEditText(context,attrs) , InputFilter {
-    private var decimalLength:Int = 2
-    private var p: Pattern
+class MoneyEditView (context: Context,attrs: AttributeSet):AppCompatEditText(context,attrs) , TextWatcher {
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+    override fun onTextChanged(charSequence: CharSequence?, i: Int, i1: Int, i2: Int) {}
+
     init {
-        val array = context.obtainStyledAttributes(attrs, R.styleable.MoneyEditView)
-        decimalLength = array.getInt(R.styleable.MoneyEditView_decimal_length,2)
-        p = Pattern.compile("([0-9]|\\.)*")
+        this.inputType = EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+        addTextChangedListener(this)
     }
-    override fun filter(source: CharSequence?, start: Int, end: Int, dest: Spanned?, dstart: Int, dend: Int): CharSequence {
-        if (source == null)return ""
-        val oldest = dest.toString()
-        if ("" == source.toString()) {
-            return ""
-        }
-        val m: Matcher = p.matcher(source)
-        if (oldest.contains(".")) {
-            if (!m.matches()) {//已经存在小数点的情况下，只能输入数字
-                return ""
-            }
-        } else {
-            if (!m.matches()) {//已经存在小数点的情况下，只能输入数字
-                return ""
-            } else {
-                if ("0" == source && "0" == oldest) {
-                    return ""
-                }
-            }
-            if ("." == source && TextUtils.isEmpty(oldest)) {
-                return ""
-            }
-        }
 
-        //验证小数位精度是否正确
+    fun getMoney():Double{
+        val str = text.toString()
+        if (TextUtils.isEmpty(str))return 0.0
+        try {
+            return str.toDouble()
+        }catch (e: Exception){}
+        return 0.0
+    }
 
-        //验证小数位精度是否正确
-        if (oldest.contains(".")) {
-            val index = oldest.indexOf(".")
-            val len = dend - index
-            //小数位只能2位
-            if (len > decimalLength) {
-                return dest!!.subSequence(dstart, dend)
-            }
+    override fun afterTextChanged(editable: Editable) {
+        val temp = editable.toString()
+        if (temp == ".") {
+            editable.delete(0, editable.length)
+            editable.append("0.")
+            return
+        }else if (temp.endsWith("..")) {
+            editable.delete(editable.length - 1, editable.length)
+            return
+        }else if (temp.startsWith("00")){
+            editable.delete(0, 1)
+        }else if (temp.startsWith("0") && !temp.startsWith("0.") && temp.length >=2){
+            editable.delete(0, 1)
         }
-        return "${dest?.subSequence(dstart, dend)}$source.toString()"
+        val posDot = temp.indexOf(".")
+        if (posDot <= 0) return
+        if (temp.length - posDot - 1 > 2) {
+            editable.delete(posDot + 3, posDot + 4)
+            return
+        }
     }
 }
