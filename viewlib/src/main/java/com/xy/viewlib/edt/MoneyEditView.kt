@@ -35,7 +35,6 @@ open class MoneyEditView(context: Context, attrs: AttributeSet?)
             setPadding((paddingLeft + leadWidth / 2).toInt(), paddingTop, (paddingRight + leadWidth / 2).toInt(), paddingBottom)
         }
         viewTreeObserver.addOnGlobalLayoutListener(this)
-        resetLebel()
     }
 
 
@@ -57,7 +56,7 @@ open class MoneyEditView(context: Context, attrs: AttributeSet?)
         if (posDot > 0 && temp.length - posDot - 1 > 2) {
             editable.delete(posDot + 3, posDot + 4)
         }
-
+        resetLebel()
     }
 
     private fun resetLebel() {
