@@ -3,7 +3,6 @@ package com.xy.viewlib.edt
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -12,13 +11,15 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.AppCompatEditText
 import com.xy.viewlib.R
 import com.xy.viewlib.dp2px
 import com.xy.viewlib.getColor
 
-open class MoneyEditView(context: Context, attrs: AttributeSet?) : AppCompatEditText(context, attrs), TextWatcher {
+open class MoneyEditView(context: Context, attrs: AttributeSet?)
+    : AppCompatEditText(context, attrs), TextWatcher , OnGlobalLayoutListener{
     private var mTextSize = 0
     private var mTextColor = 0x000000
     private var leadText = "¥"
@@ -33,6 +34,7 @@ open class MoneyEditView(context: Context, attrs: AttributeSet?) : AppCompatEdit
             val leadWidth = measureText(mTextSize.toFloat(), leadText)
             setPadding((paddingLeft + leadWidth / 2).toInt(), paddingTop, (paddingRight + leadWidth / 2).toInt(), paddingBottom)
         }
+        viewTreeObserver.addOnGlobalLayoutListener(this)
         resetLebel()
     }
 
@@ -55,7 +57,7 @@ open class MoneyEditView(context: Context, attrs: AttributeSet?) : AppCompatEdit
         if (posDot > 0 && temp.length - posDot - 1 > 2) {
             editable.delete(posDot + 3, posDot + 4)
         }
-        resetLebel()
+
     }
 
     private fun resetLebel() {
@@ -101,5 +103,8 @@ open class MoneyEditView(context: Context, attrs: AttributeSet?) : AppCompatEdit
         return paint.measureText(text)
     }
 
-
+    override fun onGlobalLayout() {
+        viewTreeObserver.removeOnGlobalLayoutListener(this)
+        resetLebel()
+    }
 }
