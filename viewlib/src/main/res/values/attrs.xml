@@ -28,7 +28,9 @@
     </declare-styleable>
 
     <declare-styleable name="MoneyEditView">
-        <attr name="decimal_length" format="integer" />
+        <attr name="money_label_text" format="string" />
+        <attr name="money_label_color" format="color"/>
+        <attr name="money_label_size" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="NavigationView">
