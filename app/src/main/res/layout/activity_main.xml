@@ -6,7 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.xy.viewlib.glide.GlideLoadImgView
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
+    <com.xy.viewlib.edt.MoneyEditView
+        android:id="@+id/monet_edt"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:hint="0.00"
+        android:gravity="center"
+        android:layout_marginHorizontal="15dp"
+        android:drawablePadding="10dp"
+        app:money_label_color="@color/gray_3333"
+        app:money_label_size="25sp"
+        android:background="@color/transparent"
+        android:textSize="22sp" />
 </LinearLayout>

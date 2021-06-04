@@ -74,9 +74,8 @@ open class MoneyEditView(context: Context, attrs: AttributeSet?)
             Gravity.RIGHT -> left = (width - textWidth / 2 - drawableWidth).toInt()
         }
         if (left <= 0) left = 0
-        val top = height / 2 - drawableHeight / 2
         val drawable: Drawable = BitmapDrawable(resources, bitmap)
-        drawable.setBounds(left, top, left + drawableWidth, drawableHeight + top)
+        drawable.setBounds(left, 0, left + drawableWidth, drawableHeight)
         setCompoundDrawables(drawable, null, null, null)
     }
 
