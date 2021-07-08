@@ -6,13 +6,17 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.xy.viewlib.R
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+import java.util.*
 
 object GlideUtils {
 
@@ -75,4 +79,6 @@ object GlideUtils {
                 .into(imageView)
         }
     }
+
+
 }
